@@ -2,6 +2,7 @@
   create 0644 root root
   daily
   rotate 10
+  copytruncate
   dateext
   dateformat -%Y-%m-%d
   missingok
@@ -9,7 +10,7 @@
   compress
   sharedscripts
   postrotate
-  /etc/init.d/nginx reopen_logs
+  /bin/kill -USR1 `cat /run/nginx.pid 2>/dev/null` 2>/dev/null || true
   aws s3 sync --acl bucket-owner-full-control --profile=wordpress_logs --exclude '' --include '*.gz' /var/log/nginx/. s3://carsnip-live-logs/wordpress/
   endscript
 }
