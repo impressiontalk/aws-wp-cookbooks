@@ -10,7 +10,7 @@ server {
   #  rewrite ^ https://carsnip.com$uri permanent;
   #}
 
-  rewrite ^([^.]*[^/])$ https://carsnip.com$1/ permanent;
+  rewrite ^([^.]*[^\/]|.*\.xml)$ https://carsnip.com$1/ permanent;
 
   listen 443 ssl http2;
   listen [::]:443 ssl http2;
