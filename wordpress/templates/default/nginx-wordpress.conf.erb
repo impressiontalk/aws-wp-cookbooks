@@ -50,8 +50,6 @@ server {
   keepalive_timeout               75s;
   send_timeout                    25s;
 
-  rewrite ^([^.]*[^\/]|.*\.xml)$ https://carsnip.com$1/ permanent;
-
   location /articles/cars-from-streaming-services {
     <% if @http_auth -%>
     auth_basic "";
@@ -59,6 +57,8 @@ server {
     <% end -%>
     alias /var/www/carsnip_wp/current/cars-from-streaming-services;
   }
+
+  rewrite ^([^.]*[^\/]|.*\.xml)$ https://carsnip.com$1/ permanent;
 
   #if (!-f $request_filename) {
   #  rewrite [^/]$ $uri/ permanent;
